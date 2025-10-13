@@ -18,7 +18,7 @@ const Footer: React.FC = () => {
                             <span className="text-xl font-bold text-gray-900">Révisia</span>
                         </div>
                         <p className="text-gray-600 mb-4 max-w-md">
-                            Transformez vos documents en questions flash personnalisées avec l&apos;IA.
+                            Transformez vos documents en questions QCM personnalisées avec l&apos;IA.
                             Optimisez vos révisions et améliorez vos performances d&apos;apprentissage.
                         </p>
                         <div className="flex space-x-4">

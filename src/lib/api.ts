@@ -32,6 +32,14 @@ api.interceptors.response.use(
             localStorage.removeItem('refresh_token');
             window.location.href = '/login';
         }
+
+        // Gérer les erreurs de vérification email (403)
+        if (error.response?.status === 403 && error.response?.data?.verification_required) {
+            // Stocker l'email pour la page de vérification
+            localStorage.setItem('pending_verification_email', error.response.data.email);
+            window.location.href = '/verify-email';
+        }
+
         return Promise.reject(error);
     }
 );
@@ -44,6 +52,7 @@ export interface User {
     last_name: string;
     education_level?: string;
     is_premium?: boolean;
+    email_verified?: boolean;
     created_at: string;
 }
 
@@ -424,6 +433,39 @@ export const subscriptionAPI = {
         cancel_at: string;
     }> => {
         const response = await api.post('/auth/subscription/cancel/');
+        return response.data;
+    },
+
+    // Email verification functions
+    sendEmailVerification: async (): Promise<{
+        message: string;
+        email: string;
+        expires_in_minutes: number;
+    }> => {
+        const response = await api.post('/auth/email/send-verification/');
+        return response.data;
+    },
+
+    verifyEmailCode: async (code: string): Promise<{
+        message: string;
+        email_verified: boolean;
+    }> => {
+        const response = await api.post('/auth/email/verify-code/', {
+            code: code
+        });
+        return response.data;
+    },
+
+    getEmailVerificationStatus: async (): Promise<{
+        email_verified: boolean;
+        email: string;
+        can_request_new_code: boolean;
+        next_code_in_seconds?: number;
+        last_code_expires_at?: string;
+        last_code_is_expired?: boolean;
+        last_code_attempts?: number;
+    }> => {
+        const response = await api.get('/auth/email/verification-status/');
         return response.data;
     },
 };

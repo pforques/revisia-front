@@ -80,7 +80,7 @@ export default function FileUpload({ onUploadSuccess }: FileUploadProps) {
                     type="file"
                     className="hidden"
                     onChange={handleChange}
-                    accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.gif,.txt"
+                    accept=".pdf,.jpg,.jpeg,.png,.gif,.txt"
                 />
 
                 <div className="space-y-6 text-center">

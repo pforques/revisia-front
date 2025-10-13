@@ -6,13 +6,11 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 const nextConfig: NextConfig = {
   // Optimisations pour Turbopack
-  experimental: {
-    turbo: {
-      rules: {
-        '*.svg': {
-          loaders: ['@svgr/webpack'],
-          as: '*.js',
-        },
+  turbopack: {
+    rules: {
+      '*.svg': {
+        loaders: ['@svgr/webpack'],
+        as: '*.js',
       },
     },
   },
@@ -33,6 +31,11 @@ const nextConfig: NextConfig = {
     return config;
   },
   async rewrites() {
+    // Désactiver les rewrites PostHog en développement
+    if (process.env.NODE_ENV === "development") {
+      return [];
+    }
+
     return [
       {
         source: "/ingest/static/:path*",

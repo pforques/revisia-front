@@ -332,6 +332,7 @@ export default function Dashboard() {
                 </section>
 
 
+
                 {/* Role Limits */}
                 <RoleLimits />
 
@@ -347,7 +348,7 @@ export default function Dashboard() {
                         <input
                             id="file-input"
                             type="file"
-                            accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.txt"
+                            accept=".pdf,.jpg,.jpeg,.png,.txt"
                             onChange={handleFileSelect}
                             className="hidden"
                         />
@@ -370,7 +371,7 @@ export default function Dashboard() {
                                     Glissez vos fichiers ici ou cliquez pour sélectionner
                                 </Typography>
                                 <Typography variant="body" color="muted" className="mb-2">
-                                    PDF, Word, images - Générez vos questions en quelques secondes
+                                    PDF, images - Générez vos questions en quelques secondes
                                 </Typography>
                                 <Typography variant="caption" color="muted">
                                     {getFileSizeMessage(user ? (user.is_premium ? 'premium' : 'free') : 'guest')}

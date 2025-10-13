@@ -6,6 +6,7 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import StructuredData from "@/components/StructuredData";
+import EmailVerificationBlocker from "@/components/EmailVerificationBlocker";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -149,13 +150,15 @@ export default function RootLayout({
       <body className={`font-sans ${geistSans.variable} ${geistMono.variable}`}>
         <Suspense fallback={null}>
           <AuthProvider>
-            <div className="min-h-screen flex flex-col">
-              <Header />
-              <main className="flex-1">
-                {children}
-              </main>
-              <Footer />
-            </div>
+            <EmailVerificationBlocker>
+              <div className="min-h-screen flex flex-col">
+                <Header />
+                <main className="flex-1">
+                  {children}
+                </main>
+                <Footer />
+              </div>
+            </EmailVerificationBlocker>
           </AuthProvider>
         </Suspense>
       </body>

@@ -152,9 +152,9 @@ export default function AttemptDetailsModal({ isOpen, onClose, attemptData, less
     const totalQuestions = user_answers.length;
 
     return (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-0 sm:p-4">
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-2 sm:p-4">
             <Card
-                className="widget-card attempt-modal-content max-w-4xl w-full p-3 sm:p-6 relative max-h-[100vh] sm:max-h-[90vh] overflow-y-auto"
+                className="widget-card attempt-modal-content max-w-4xl w-full p-3 sm:p-6 relative max-h-[95vh] sm:max-h-[90vh] overflow-y-auto"
                 style={{
                     scrollbarWidth: 'thin',
                     scrollbarColor: '#d1d5db #f3f4f6',

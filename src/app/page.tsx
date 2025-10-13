@@ -213,7 +213,7 @@ export default function HomePage() {
                                             id="file-input"
                                             type="file"
                                             multiple
-                                            accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.txt"
+                                            accept=".pdf,.jpg,.jpeg,.png,.txt"
                                             onChange={handleFileSelect}
                                             className="hidden"
                                         />
@@ -236,7 +236,7 @@ export default function HomePage() {
                                                     Glissez vos fichiers ici ou cliquez pour sélectionner
                                                 </h3>
                                                 <p className="text-sm sm:text-base text-muted-foreground mb-2">
-                                                    PDF, Word, images, photos manuscrites - Générez vos QCM en quelques secondes
+                                                    PDF, images, photos manuscrites - Générez vos QCM en quelques secondes
                                                 </p>
                                                 <p className="text-xs text-muted-foreground">
                                                     {getFileSizeMessage(user ? (user.is_premium ? 'premium' : 'free') : 'guest')}
@@ -410,7 +410,7 @@ export default function HomePage() {
                                     id="file-input"
                                     type="file"
                                     multiple
-                                    accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.txt"
+                                    accept=".pdf,.jpg,.jpeg,.png,.txt"
                                     onChange={handleFileSelect}
                                     className="hidden"
                                 />
@@ -713,7 +713,7 @@ export default function HomePage() {
                             {
                                 icon: Camera,
                                 title: "1. Uploadez",
-                                description: "Prenez une photo de vos notes ou uploadez un document PDF, Word ou image",
+                                description: "Prenez une photo de vos notes ou uploadez un document PDF ou image",
                                 color: "bg-blue-soft",
                                 iconColor: "text-blue-700",
                             },
@@ -759,7 +759,7 @@ export default function HomePage() {
                             {
                                 icon: FileText,
                                 title: "Multi-formats",
-                                description: "PDF, Word, images, photos manuscrites",
+                                description: "PDF, images, photos manuscrites",
                                 color: "bg-blue-soft",
                                 iconColor: "text-blue-700",
                             },
@@ -794,7 +794,7 @@ export default function HomePage() {
                             {
                                 icon: Award,
                                 title: "Mode révision rapide",
-                                description: "Questions flash pour réviser vite",
+                                description: "Questions QCM pour réviser efficacement",
                                 color: "bg-blue-soft",
                                 iconColor: "text-blue-700",
                             },
