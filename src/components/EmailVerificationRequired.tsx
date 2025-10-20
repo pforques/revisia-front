@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import { AlertCircle, Mail, RefreshCw, Clock, CheckCircle } from 'lucide-react';
 import api from '@/lib/api';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 interface EmailVerificationRequiredProps {
     userEmail: string;
@@ -23,6 +25,7 @@ export default function EmailVerificationRequired({
     userEmail,
     onVerified
 }: EmailVerificationRequiredProps) {
+    const router = useRouter();
     const [verificationCode, setVerificationCode] = useState('');
     const [status, setStatus] = useState<VerificationStatus | null>(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -43,6 +46,14 @@ export default function EmailVerificationRequired({
             return () => clearTimeout(timer);
         }
     }, [countdown]);
+
+    // Rediriger automatiquement si déjà vérifié
+    useEffect(() => {
+        if (status?.email_verified) {
+            // Redirection silencieuse vers l'accueil
+            router.replace('/');
+        }
+    }, [status?.email_verified, router]);
 
     const loadVerificationStatus = async () => {
         try {
@@ -117,25 +128,9 @@ export default function EmailVerificationRequired({
         setError('');
     };
 
-    // Si l'email est déjà vérifié
+    // Si l'email est déjà vérifié, ne rien afficher (redirection en cours)
     if (status?.email_verified) {
-        return (
-            <div className="min-h-screen dashboard-gradient flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-                <div className="max-w-md w-full space-y-8">
-                    <div className="text-center">
-                        <div className="w-16 h-16 bg-green-soft rounded-full flex items-center justify-center mx-auto mb-4">
-                            <CheckCircle className="w-8 h-8 text-green-700" />
-                        </div>
-                        <h2 className="text-3xl font-bold text-foreground mb-2">
-                            Email vérifié avec succès !
-                        </h2>
-                        <p className="text-muted-foreground mb-8">
-                            Votre compte est maintenant vérifié. Vous pouvez continuer à utiliser Révisia.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        );
+        return null;
     }
 
     return (
@@ -269,10 +264,16 @@ export default function EmailVerificationRequired({
                     )}
                 </div>
 
-                <div className="text-center">
+                <div className="text-center space-y-4">
                     <p className="text-sm text-muted-foreground">
                         En cas de problème, contactez notre support technique.
                     </p>
+                    <Link
+                        href="/"
+                        className="inline-flex items-center justify-center bg-foreground text-background px-4 py-2 rounded-md font-medium hover:opacity-90 transition-colors"
+                    >
+                        Retour à l&apos;accueil
+                    </Link>
                 </div>
             </div>
         </div>
