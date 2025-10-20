@@ -49,14 +49,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         const response = await authAPI.login({ email, password });
         localStorage.setItem('access_token', response.tokens.access);
         localStorage.setItem('refresh_token', response.tokens.refresh);
-        setUser(response.user);
+        // Recharger le profil depuis le backend pour avoir un email_verified à jour
+        const freshUser = await authAPI.getProfile();
+        setUser(freshUser);
     };
 
     const register = async (data: RegisterData) => {
         const response = await authAPI.register(data);
         localStorage.setItem('access_token', response.tokens.access);
         localStorage.setItem('refresh_token', response.tokens.refresh);
-        setUser(response.user);
+        // Recharger le profil depuis le backend pour avoir un email_verified à jour
+        const freshUser = await authAPI.getProfile();
+        setUser(freshUser);
     };
 
     const logout = async () => {

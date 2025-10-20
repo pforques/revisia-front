@@ -10,7 +10,7 @@ interface EmailVerificationBlockerProps {
 }
 
 export default function EmailVerificationBlocker({ children }: EmailVerificationBlockerProps) {
-    const { user, refreshUser } = useAuth();
+    const { user, refreshUser, loading } = useAuth();
     const pathname = usePathname();
     const [isChecking, setIsChecking] = useState(true);
     const [showVerification, setShowVerification] = useState(false);
@@ -24,6 +24,12 @@ export default function EmailVerificationBlocker({ children }: EmailVerification
         ];
 
         const checkEmailVerification = async () => {
+            // Tant que l'état d'auth global charge, ne pas décider (évite le flash)
+            if (loading) {
+                setIsChecking(true);
+                return;
+            }
+
             // Si c'est une page publique, ne pas bloquer
             if (publicPages.includes(pathname)) {
                 setIsChecking(false);
@@ -45,7 +51,7 @@ export default function EmailVerificationBlocker({ children }: EmailVerification
         };
 
         checkEmailVerification();
-    }, [user, pathname]);
+    }, [user, pathname, loading]);
 
     // Pendant la vérification
     if (isChecking) {

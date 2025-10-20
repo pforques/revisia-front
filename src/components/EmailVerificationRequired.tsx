@@ -47,13 +47,16 @@ export default function EmailVerificationRequired({
         }
     }, [countdown]);
 
-    // Rediriger automatiquement si déjà vérifié
+    // Rediriger/Notifier automatiquement si déjà vérifié
     useEffect(() => {
         if (status?.email_verified) {
-            // Redirection silencieuse vers l'accueil
-            router.replace('/');
+            if (onVerified) {
+                onVerified();
+            } else {
+                router.replace('/');
+            }
         }
-    }, [status?.email_verified, router]);
+    }, [status?.email_verified, onVerified, router]);
 
     const loadVerificationStatus = async () => {
         try {
@@ -128,9 +131,16 @@ export default function EmailVerificationRequired({
         setError('');
     };
 
-    // Si l'email est déjà vérifié, ne rien afficher (redirection en cours)
+    // Si l'email est déjà vérifié, afficher un indicateur pendant la mise à jour/redirect
     if (status?.email_verified) {
-        return null;
+        return (
+            <div className="min-h-screen dashboard-gradient flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+                <div className="text-center">
+                    <div className="w-8 h-8 border-4 border-orange-700 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                    <p className="text-muted-foreground">Email vérifié, redirection en cours...</p>
+                </div>
+            </div>
+        );
     }
 
     return (
