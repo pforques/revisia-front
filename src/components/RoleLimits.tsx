@@ -26,7 +26,7 @@ export default function RoleLimits() {
 
     const getRoleTitle = () => {
         if (isGuest) return 'Mode Test';
-        if (isFree) return 'Compte Gratuit';
+        if (isFree) return 'Informations de quota';
         if (isPremium) return 'Premium';
         return 'Utilisateur';
     };
@@ -39,7 +39,7 @@ export default function RoleLimits() {
             const maxQuizzes = roleInfo.limits.max_quizzes_per_day || 0;
             const remainingQuizzes = Math.max(0, maxQuizzes - roleInfo.quiz_count_today);
             const remainingAttempts = Math.max(0, maxAttemptsPerDay - attemptsCountToday);
-            return `Pour aujourd'hui, Il vous reste ${remainingQuizzes}/${maxQuizzes} génération de quiz. ${remainingAttempts}/${maxAttemptsPerDay} tentatives restantes.`;
+            return `Il vous reste ${remainingQuizzes}/${maxQuizzes} génération au total et ${remainingAttempts}/${maxAttemptsPerDay} tentatives au total.`;
         }
         if (isPremium) {
             return 'Premium : jusqu\'à 50 questions par quiz, quiz illimités, tentatives illimitées.';
@@ -61,16 +61,7 @@ export default function RoleLimits() {
             );
         }
         if (isFree) {
-            return (
-                <div className="mt-2">
-                    <Link
-                        href="/pricing"
-                        className="text-orange-600 hover:text-orange-700 font-medium text-sm"
-                    >
-                        Passer à Premium →
-                    </Link>
-                </div>
-            );
+            return null;
         }
         return null;
     };
